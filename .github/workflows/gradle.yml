@@ -1,0 +1,36 @@
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        
+    - name: Run SUT (System Under Test)
+      # Запускаем банковский сервис в фоновом режиме (&)
+      run: java -jar ./artifacts/app-mbank.jar &
+      
+    - name: Wait for SUT to start
+      # Даем серверу 10 секунд, чтобы он успел «подняться»
+      run: sleep 10
+        
+    - name: Grant execute permission for gradlew
+      # Даем права на запуск скрипту Gradle
+      run: chmod +x gradlew
+      
+    - name: Run tests with Gradle
+      # Запускаем сами тесты
+      run: ./gradlew test
