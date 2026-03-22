@@ -1,0 +1,19 @@
+.gradle
+build/
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+Исключаем всё, кроме нужных нам системных файлов Gradle
+
+!gradle/wrapper/gradle-wrapper.jar
+!/src/main/
+!/src/test/
