@@ -18,4 +18,11 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    // Этот блок заставит лог показать, какое именно поле в JSON не подошло
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+        showExceptions true
+        showCauses true
+    }
 }
